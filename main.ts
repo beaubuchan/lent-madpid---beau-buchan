@@ -1,4 +1,4 @@
-controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     punch = sprites.createProjectileFromSprite(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -17,6 +17,15 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         `, flash, 100, 0)
+})
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
+    otherSprite.destroy()
+    sprite.destroy(effects.disintegrate, 100)
+    info.changeScoreBy(1)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    otherSprite.destroy()
+    info.changeLifeBy(-1)
 })
 let obstacle: Sprite = null
 let punch: Sprite = null
@@ -163,8 +172,8 @@ flash = sprites.create(img`
     `, SpriteKind.Player)
 flash.setFlag(SpriteFlag.StayInScreen, true)
 info.setLife(3)
-controller.moveSprite(flash, 500, 500)
-game.onUpdateInterval(200, function () {
+controller.moveSprite(flash, 700, 700)
+game.onUpdateInterval(500, function () {
     obstacle = sprites.create(img`
         ................86..................
         ...........6688867886...............
@@ -209,4 +218,7 @@ game.onUpdateInterval(200, function () {
         ...............ffceec...............
         `, SpriteKind.Enemy)
     obstacle.setVelocity(-100, 0)
+    obstacle.left = scene.screenWidth()
+    obstacle.y = randint(0, scene.screenHeight())
+    obstacle.setFlag(SpriteFlag.AutoDestroy, true)
 })
