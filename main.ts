@@ -22,14 +22,17 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, oth
     otherSprite.destroy()
     sprite.destroy(effects.disintegrate, 100)
     info.changeScoreBy(1)
+    music.baDing.play()
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     otherSprite.destroy()
     info.changeLifeBy(-1)
+    music.powerDown.play()
 })
 let obstacle: Sprite = null
 let punch: Sprite = null
 let flash: Sprite = null
+music.playMelody("G A B C5 - - - - ", 500)
 scene.setBackgroundImage(img`
     9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
     9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -173,7 +176,7 @@ flash = sprites.create(img`
 flash.setFlag(SpriteFlag.StayInScreen, true)
 info.setLife(3)
 controller.moveSprite(flash, 700, 700)
-game.onUpdateInterval(500, function () {
+game.onUpdateInterval(200, function () {
     obstacle = sprites.create(img`
         ................86..................
         ...........6688867886...............
