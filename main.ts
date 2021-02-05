@@ -220,8 +220,9 @@ game.onUpdateInterval(500, function () {
         ...............fceeec...............
         ...............ffceec...............
         `, SpriteKind.Enemy)
-    obstacle.setVelocity(-100, 0)
+    obstacle.x = scene.screenWidth()
+    obstacle.setVelocity(-20, 0)
     obstacle.left = scene.screenWidth()
-    obstacle.y = randint(0, scene.screenHeight())
+    obstacle.y = randint(10, scene.screenHeight() - 10)
     obstacle.setFlag(SpriteFlag.AutoDestroy, true)
 })
