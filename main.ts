@@ -176,6 +176,18 @@ flash = sprites.create(img`
 flash.setFlag(SpriteFlag.StayInScreen, true)
 info.setLife(5)
 controller.moveSprite(flash, 700, 700)
+game.onUpdate(function () {
+    if (info.score() > 15) {
+        obstacle.setVelocity(-37, 31)
+    } else if (info.score() > 45) {
+        obstacle.setVelocity(-55, -53)
+    } else if (info.score() > 60) {
+        obstacle.setVelocity(-100, 100)
+    } else if (info.score() > 80) {
+        game.over(true)
+        effects.confetti.endScreenEffect()
+    }
+})
 game.onUpdateInterval(500, function () {
     obstacle = sprites.create(img`
         ................86..................
