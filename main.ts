@@ -212,6 +212,7 @@ game.onUpdateInterval(500, function () {
     obstacle.left = scene.screenWidth()
     obstacle.y = randint(10, scene.screenHeight() - 10)
     obstacle.setFlag(SpriteFlag.AutoDestroy, true)
+    obstacle.setFlag(SpriteFlag.StayInScreen, true)
 })
 game.onUpdateInterval(500, function () {
     if (info.score() > 15) {
